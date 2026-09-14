@@ -5,8 +5,13 @@ Practical Test (July 2023)
 
 ## Files
 
-- `index.php` - the whole system (form, validation, calculation, bill)
+- `process.php` - THE LOGIC: reads the input, validates it, calculates the bill
+- `index.php` - THE VIEW: displays the form and the bill on screen
 - `style.css` - styling
+
+`index.php` loads `process.php` with `include 'process.php';` at the very top.
+The logic runs first, then the page displays the result. `process.php` has no
+HTML inside it, and `index.php` has no calculation inside it.
 
 ## How to run
 
