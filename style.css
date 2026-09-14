@@ -88,18 +88,24 @@ input[type="text"] {
     border: 1px solid #999999;       /* grey border */
 }
 
-/* the two buttons: "Calculate Bill" and "Reset" */
-input[type="submit"], input[type="reset"] {
+/* Both buttons. "Calculate Bill" and "Reset" are both type="submit" now,
+   so this one rule styles the two of them together. */
+input[type="submit"] {
     padding: 8px 18px;               /* makes the buttons bigger */
     font-size: 14px;                 /* same size as the page text */
     cursor: pointer;                 /* show a hand when the mouse is over */
-}
-
-/* the "Calculate Bill" button only - make it blue so it is easy to find */
-input[type="submit"] {
     background-color: #1f5f8b;       /* dark blue, same as the title bar */
     color: white;                    /* white text */
     border: none;                    /* no border */
+}
+
+/* The "Reset" button only. Because both buttons are type="submit", we pick
+   this one out using its name="reset" and make it grey, so the user can
+   tell the two buttons apart. */
+input[name="reset"] {
+    background-color: #eeeeee;       /* light grey instead of blue */
+    color: #333333;                  /* dark grey text */
+    border: 1px solid #999999;       /* grey border */
 }
 
 

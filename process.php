@@ -40,6 +40,12 @@ $block5 = "";       // next kWh         (901 kWh onwards)
 //  isset() returns true if the variable exists.
 //  $_POST['calculate'] only exists after the user clicks the button named
 //  "calculate". So this whole block is SKIPPED when the page first loads.
+//
+//  This is also how the RESET button works. The Reset button is named
+//  "reset", not "calculate", so when the user clicks it this if is false and
+//  the whole block below is skipped. Every variable keeps the empty value it
+//  was given in Section 1, which makes the boxes blank again and hides the
+//  bill. No extra code is needed to clear the form.
 // --------------------------------------------------------------------------
 
 if (isset($_POST['calculate'])) {

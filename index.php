@@ -123,9 +123,17 @@ include 'process.php';
                  isset($_POST['calculate']) inside process.php checks. -->
             <input type="submit" name="calculate" value="Calculate Bill">
 
-            <!-- The reset button clears all the boxes. This is done by the
-                 browser itself, so no PHP code is needed for it. -->
-            <input type="reset" value="Reset">
+            <!-- The reset button.
+                 NOTE: we do NOT use type="reset" here. A type="reset" button
+                 only puts back the value that was already inside the box, and
+                 after a calculation PHP has put the user's numbers there, so
+                 it would look like nothing happened.
+
+                 Instead this is a normal submit button with name="reset".
+                 It sends the form, but because it is NOT named "calculate",
+                 the if inside process.php is skipped. Every variable stays
+                 empty, so the boxes come back blank and the bill disappears. -->
+            <input type="submit" name="reset" value="Reset">
         </p>
 
     </form>
