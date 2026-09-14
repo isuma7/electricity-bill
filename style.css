@@ -1,0 +1,129 @@
+/* ==========================================================================
+   STYLE FOR: Calculate House Electricity Bill
+   CRM 1963 - Web Programming with PHP
+
+   This file controls how the page LOOKS (colours, sizes, spacing).
+   It is connected to index.php by this line inside <head>:
+       <link rel="stylesheet" href="style.css">
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   BODY = the whole page
+   -------------------------------------------------------------------------- */
+body {
+    font-family: Arial, sans-serif;  /* the font used for all the text */
+    font-size: 14px;                 /* the size of the normal text */
+    background-color: #eef1f4;       /* light grey background for the page */
+    margin: 0;                       /* remove the browser's default space */
+    padding: 0;                      /* remove the browser's default space */
+}
+
+
+/* --------------------------------------------------------------------------
+   H1 = the blue title bar at the top of the page
+   -------------------------------------------------------------------------- */
+h1 {
+    background-color: #1f5f8b;       /* dark blue background */
+    color: white;                    /* white text on top of the blue */
+    text-align: center;              /* put the text in the middle */
+    padding: 20px;                   /* space inside the blue bar */
+    margin: 0;                       /* no space outside the blue bar */
+}
+
+
+/* --------------------------------------------------------------------------
+   H2 = the small title inside each white box
+   -------------------------------------------------------------------------- */
+h2 {
+    font-size: 16px;                     /* a bit bigger than normal text */
+    border-bottom: 2px solid #dddddd;    /* a grey line under the title */
+    padding-bottom: 8px;                 /* space between title and the line */
+    margin-top: 0;                       /* no extra space above the title */
+}
+
+
+/* --------------------------------------------------------------------------
+   .box = the white panel. Used 3 times: tariff table, form, and bill.
+   In the HTML it is written as <div class="box">
+   -------------------------------------------------------------------------- */
+.box {
+    background-color: white;         /* white panel */
+    border: 1px solid #cccccc;       /* thin grey border around the panel */
+    width: 700px;                    /* how wide the panel is */
+    margin: 20px auto;               /* 20px top/bottom, auto = centre it */
+    padding: 20px;                   /* space between the border and content */
+}
+
+
+/* --------------------------------------------------------------------------
+   TABLE = the tariff table and the bill table
+   -------------------------------------------------------------------------- */
+table {
+    border-collapse: collapse;       /* join the cell borders into one line */
+    width: 100%;                     /* make the table fill the whole box */
+}
+
+/* th = heading cell, td = normal cell. Both get the same border and space. */
+th, td {
+    border: 1px solid #cccccc;       /* grey border around every cell */
+    padding: 8px;                    /* space inside every cell */
+    text-align: left;                /* line the text up on the left */
+}
+
+/* th only = the heading row gets a grey background so it stands out */
+th {
+    background-color: #eef1f4;
+}
+
+
+/* --------------------------------------------------------------------------
+   THE FORM INPUTS
+   -------------------------------------------------------------------------- */
+
+/* the text boxes where the user types the kWh */
+input[type="text"] {
+    width: 80px;                     /* the boxes only need a few digits */
+    padding: 5px;                    /* space inside the box */
+    border: 1px solid #999999;       /* grey border */
+}
+
+/* the two buttons: "Calculate Bill" and "Reset" */
+input[type="submit"], input[type="reset"] {
+    padding: 8px 18px;               /* makes the buttons bigger */
+    font-size: 14px;                 /* same size as the page text */
+    cursor: pointer;                 /* show a hand when the mouse is over */
+}
+
+/* the "Calculate Bill" button only - make it blue so it is easy to find */
+input[type="submit"] {
+    background-color: #1f5f8b;       /* dark blue, same as the title bar */
+    color: white;                    /* white text */
+    border: none;                    /* no border */
+}
+
+
+/* --------------------------------------------------------------------------
+   .error = the red warning box shown when the input is wrong
+   In the HTML it is written as <p class="error">
+   -------------------------------------------------------------------------- */
+.error {
+    background-color: #ffe5e5;       /* light red background */
+    border: 1px solid #cc0000;       /* red border */
+    color: #cc0000;                  /* red text */
+    padding: 10px;                   /* space inside the red box */
+}
+
+
+/* --------------------------------------------------------------------------
+   .total = the green box showing the final amount to pay
+   In the HTML it is written as <p class="total">
+   -------------------------------------------------------------------------- */
+.total {
+    background-color: #e5f5ec;       /* light green background */
+    border: 2px solid #0b7a52;       /* green border, thicker so it stands out */
+    color: #0b7a52;                  /* green text */
+    font-size: 18px;                 /* bigger than the other text */
+    font-weight: bold;               /* make the text bold */
+    padding: 12px;                   /* space inside the green box */
+}
