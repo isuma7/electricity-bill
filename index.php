@@ -1,215 +1,120 @@
 <?php
-// ==========================================================================
-//  index.php  =  THE VIEW
-//  CRM 1963 - Web Programming with PHP
-//
-//  This file only DISPLAYS things on the screen.
-//  There is no calculation and no validation inside this file.
-//
-//  All the thinking is done inside process.php. The line below loads that
-//  file and runs it FIRST, before any HTML is sent to the browser. After it
-//  finishes, these variables are ready for this page to display:
-//
-//      $error       the warning message, or "" when there is no error
-//      $showBill    true when the bill should be displayed
-//      $block1..5   the kWh the user typed in each box
-//      $charge1..5  the RM amount for each block
-//      $totalKwh    the total kWh used
-//      $totalCharge the total RM before SST
-//      $sst         the 6% SST amount
-//      $totalBill   the final amount to pay
-// ==========================================================================
+// ==========================================================
+//  index.php = THE VIEW
+//  This file only displays things. No calculation here.
+//  The line below runs process.php first, which prepares
+//  $error, $showBill, $block1..5, $charge1..5, $totalKwh,
+//  $totalCharge, $sst and $totalBill.
+// ==========================================================
 
 include 'process.php';
 ?>
-<!DOCTYPE html>
 <html>
+
 <head>
     <title>Calculate House Electricity Bill</title>
-
-    <!-- link the CSS file that makes the page look nice -->
-    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Calculate House Electricity Bill</h1>
-
-
-<!-- =====================================================================
-     PART 1: THE TARIFF TABLE
-     This is just plain HTML. It shows the user the rate for each block
-     so they know how the bill is calculated.
-     ===================================================================== -->
-<div class="box">
-    <h2>Block Tariff (per month)</h2>
-
-    <table>
-        <!-- the heading row of the table -->
-        <tr>
-            <th>Block Tariff (per month)</th>
-            <th>Unit</th>
-            <th>Rate</th>
-        </tr>
-
-        <!-- one row for each block of the tariff -->
-        <tr><td>For the first 200 kWh (1 - 200 kWh)</td><td>sen/kWh</td><td>0.218</td></tr>
-        <tr><td>For the next 100 kWh (201 - 300 kWh)</td><td>sen/kWh</td><td>0.344</td></tr>
-        <tr><td>For the next 300 kWh (301 - 600 kWh)</td><td>sen/kWh</td><td>0.516</td></tr>
-        <tr><td>For the next 300 kWh (601 - 900 kWh)</td><td>sen/kWh</td><td>0.546</td></tr>
-        <tr><td>For the next kWh (901 kWh onwards)</td><td>sen/kWh</td><td>0.571</td></tr>
-    </table>
-
-    <p>Minimum monthly charge is RM3.00. Usage more than 600 kWh is charged 6% SST.</p>
-</div>
-
-
-<!-- =====================================================================
-     PART 2: THE INPUT FORM
-     method="post" means the data is sent using $_POST.
-     There is no action="" so the form sends the data back to this same
-     page, and process.php reads it again from the top.
-     ===================================================================== -->
-<div class="box">
-    <h2>Enter Your Electricity Usage</h2>
+    <h2>Calculate House Electricity Bill</h2>
 
     <?php
-    // Show the red warning box ONLY if $error is not empty.
-    // $error was prepared by process.php.  != means "is not equal to".
+    // show the warning only when there is an error
     if ($error != "") {
+        echo "<p><b>Warning:</b> " . $error . "</p>";
+    }
     ?>
-        <p class="error">Warning: <?php echo $error; ?></p>
-    <?php
-    }   // end of the if
-    ?>
+
+    <!-- method="post" sends the data to process.php.
+     No action="" means it is sent back to this same page. -->
+
+    <div style="margin-bottom: 50px">
+        <table border="1">
+            <tr>
+                <th>Block Tariff (per month)</th>
+                <th>Unit</th>
+                <th>Rate</th>
+            </tr>
+            <tr>
+                <td>For the first 200 kWh (1-200 kWh) per month</td>
+                <td>1 - 200 kWh</td>
+                <td>0.218</td>
+            </tr>
+            <tr>
+                <td>For the first 100 kWh (201-300 kWh) per month</td>
+                <td>201 - 300 kWh</td>
+                <td>0.344</td>
+            </tr>
+            <tr>
+                <td>For the first 300 kWh (301-600 kWh) per month</td>
+                <td>301 - 600 kWh</td>
+                <td>0.516</td>
+            </tr>
+            <tr>
+                <td>For the first 300 kWh (601-900 kWh) per month</td>
+                <td>601 - 900 kWh</td>
+                <td>0.546</td>
+            </tr>
+            <tr>
+                <td>For the first 300 kWh (901 kWh onwards) per month</td>
+                <td>901 kWh onwards</td>
+                <td>0.571</td>
+            </tr>
+        </table>
+    </div>
 
     <form method="post">
 
-        <!-- TEXT BOX 1
-             name="block1"  -> this is the name process.php uses when it
-                               reads $_POST['block1']
-             value="..."    -> print the old value back into the box so the
-                               user does not lose what they typed -->
-        <p>
-            Enter your first 200 kWh (1 - 200 kWh) per month :
-            <input type="text" name="block1" value="<?php echo $block1; ?>"> kWh
-        </p>
+        Enter your first 200 kWh (1 - 200 kWh) per month :
+        <input type="text" name="block1" value="<?php echo $block1; ?>"><br><br>
 
-        <!-- TEXT BOX 2 -->
-        <p>
-            Enter next 100 kWh (201 - 300 kWh) per month :
-            <input type="text" name="block2" value="<?php echo $block2; ?>"> kWh
-        </p>
+        Enter next 100 kWh (201 - 300 kWh) per month :
+        <input type="text" name="block2" value="<?php echo $block2; ?>"><br><br>
 
-        <!-- TEXT BOX 3 -->
-        <p>
-            Enter next 300 kWh (301 - 600 kWh) per month :
-            <input type="text" name="block3" value="<?php echo $block3; ?>"> kWh
-        </p>
+        Enter next 300 kWh (301 - 600 kWh) per month :
+        <input type="text" name="block3" value="<?php echo $block3; ?>"><br><br>
 
-        <!-- TEXT BOX 4 -->
-        <p>
-            Enter next 300 kWh (601 - 900 kWh) per month :
-            <input type="text" name="block4" value="<?php echo $block4; ?>"> kWh
-        </p>
+        Enter next 300 kWh (601 - 900 kWh) per month :
+        <input type="text" name="block4" value="<?php echo $block4; ?>"><br><br>
 
-        <!-- TEXT BOX 5 -->
-        <p>
-            Enter next kWh (901 kWh onwards) per month :
-            <input type="text" name="block5" value="<?php echo $block5; ?>"> kWh
-        </p>
+        Enter next kWh (901 kWh onwards) per month :
+        <input type="text" name="block5" value="<?php echo $block5; ?>"><br><br>
 
-        <p>
-            <!-- The submit button. Its name="calculate" is what the
-                 isset($_POST['calculate']) inside process.php checks. -->
-            <input type="submit" name="calculate" value="Calculate Bill">
+        <!-- name="calculate" is what process.php checks with isset() -->
+        <input type="submit" name="calculate" value="Calculate Bill">
 
-            <!-- The reset button.
-                 NOTE: we do NOT use type="reset" here. A type="reset" button
-                 only puts back the value that was already inside the box, and
-                 after a calculation PHP has put the user's numbers there, so
-                 it would look like nothing happened.
-
-                 Instead this is a normal submit button with name="reset".
-                 It sends the form, but because it is NOT named "calculate",
-                 the if inside process.php is skipped. Every variable stays
-                 empty, so the boxes come back blank and the bill disappears. -->
-            <input type="submit" name="reset" value="Reset">
-        </p>
+        <!-- named "reset" so process.php skips the calculation and
+         the boxes come back empty -->
+        <input type="submit" name="reset" value="Reset">
 
     </form>
-</div>
 
+    <?php
+    // show the bill only after the input is correct
+    if ($showBill) {
 
-<!-- =====================================================================
-     PART 3: THE BILL
-     This whole section is displayed ONLY when $showBill is true.
-     process.php sets it to true after the user enters correct data.
-     ===================================================================== -->
-<?php if ($showBill) { ?>
+        echo "<hr>";
+        echo "<h3>Your Electricity Bill</h3>";
 
-<div class="box">
-    <h2>Your Electricity Bill</h2>
+        // one line for each block: kWh x rate = amount
+        // number_format($charge1, 2) shows 2 decimal places (43.6 -> 43.60)
+        echo "1 - 200 kWh : " . $block1 . " kWh x 0.218 = RM " . number_format($charge1, 2) . "<br>";
+        echo "201 - 300 kWh : " . $block2 . " kWh x 0.344 = RM " . number_format($charge2, 2) . "<br>";
+        echo "301 - 600 kWh : " . $block3 . " kWh x 0.516 = RM " . number_format($charge3, 2) . "<br>";
+        echo "601 - 900 kWh : " . $block4 . " kWh x 0.546 = RM " . number_format($charge4, 2) . "<br>";
+        echo "901 kWh onwards : " . $block5 . " kWh x 0.571 = RM " . number_format($charge5, 2) . "<br>";
 
-    <table>
-        <!-- heading row -->
-        <tr>
-            <th>Block</th>
-            <th>kWh Used</th>
-            <th>Rate</th>
-            <th>Amount</th>
-        </tr>
+        echo "<br>";
 
-        <!-- One row for each block. echo prints the value of a variable.
-             number_format($charge1, 2) prints the number with exactly
-             2 decimal places, for example 43.6 becomes 43.60 -->
-        <tr>
-            <td>1 - 200 kWh</td>
-            <td><?php echo $block1; ?> kWh</td>
-            <td>0.218</td>
-            <td>RM <?php echo number_format($charge1, 2); ?></td>
-        </tr>
-        <tr>
-            <td>201 - 300 kWh</td>
-            <td><?php echo $block2; ?> kWh</td>
-            <td>0.344</td>
-            <td>RM <?php echo number_format($charge2, 2); ?></td>
-        </tr>
-        <tr>
-            <td>301 - 600 kWh</td>
-            <td><?php echo $block3; ?> kWh</td>
-            <td>0.516</td>
-            <td>RM <?php echo number_format($charge3, 2); ?></td>
-        </tr>
-        <tr>
-            <td>601 - 900 kWh</td>
-            <td><?php echo $block4; ?> kWh</td>
-            <td>0.546</td>
-            <td>RM <?php echo number_format($charge4, 2); ?></td>
-        </tr>
-        <tr>
-            <td>901 kWh onwards</td>
-            <td><?php echo $block5; ?> kWh</td>
-            <td>0.571</td>
-            <td>RM <?php echo number_format($charge5, 2); ?></td>
-        </tr>
-    </table>
-
-    <!-- The summary of the bill -->
-
-    <!-- total kWh used in the month -->
-    <p>Total electricity consumption : <b><?php echo $totalKwh; ?> kWh</b></p>
-
-    <!-- total charge in RM before SST -->
-    <p>Total consumption : <b>RM <?php echo number_format($totalCharge, 2); ?></b></p>
-
-    <!-- the 6% SST (this shows RM 0.00 when the usage is 600 kWh or less) -->
-    <p>SST 6% : <b>RM <?php echo number_format($sst, 2); ?></b></p>
-
-    <!-- the final amount the customer must pay -->
-    <p class="total">Total Current Bill : RM <?php echo number_format($totalBill, 2); ?></p>
-</div>
-
-<?php }   // end of the if ($showBill) ?>
+        // the summary
+        echo "Total electricity consumption : " . $totalKwh . " kWh<br>";
+        echo "Total consumption : RM " . number_format($totalCharge, 2) . "<br>";
+        echo "SST 6% : RM " . number_format($sst, 2) . "<br>";
+        echo "<b>Total Current Bill : RM " . number_format($totalBill, 2) . "</b><br>";
+    }
+    ?>
 
 </body>
+
 </html>
