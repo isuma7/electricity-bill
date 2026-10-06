@@ -22,7 +22,7 @@ include 'process.php';
     <?php
     // show the warning only when there is an error
     if ($error != "") {
-        echo "<p><b>Warning:</b> " . $error . "</p>";
+        echo "<p style='color: red;'><b>Warning:</b> " . $error . "</p>";
     }
     ?>
 

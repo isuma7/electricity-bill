@@ -6,7 +6,7 @@
 //  and index.php displays them.
 // ==========================================================
 
-$error    = "";      // the warning message ("" means no error)
+$error = "";      // the warning message ("" means no error)
 $showBill = false;   // true = show the bill, false = do not show
 
 // what the user typed in each box (empty when the page first opens)
@@ -30,11 +30,21 @@ if (isset($_POST['calculate'])) {
     $block5 = $_POST['block5'];
 
     // an empty box means that block was not used, so make it 0
-    if ($block1 == "") { $block1 = 0; }
-    if ($block2 == "") { $block2 = 0; }
-    if ($block3 == "") { $block3 = 0; }
-    if ($block4 == "") { $block4 = 0; }
-    if ($block5 == "") { $block5 = 0; }
+    if ($block1 == "") {
+        $block1 = 0;
+    }
+    if ($block2 == "") {
+        $block2 = 0;
+    }
+    if ($block3 == "") {
+        $block3 = 0;
+    }
+    if ($block4 == "") {
+        $block4 = 0;
+    }
+    if ($block5 == "") {
+        $block5 = 0;
+    }
 
 
     // --- validation ---
@@ -43,8 +53,10 @@ if (isset($_POST['calculate'])) {
     // runs and the bill is calculated.
 
     // is_numeric() is true if the value is a number. ! means NOT.
-    if (!is_numeric($block1) || !is_numeric($block2) || !is_numeric($block3)
-        || !is_numeric($block4) || !is_numeric($block5)) {
+    if (
+        !is_numeric($block1) || !is_numeric($block2) || !is_numeric($block3)
+        || !is_numeric($block4) || !is_numeric($block5)
+    ) {
         $error = "Please enter numbers only. Try again.";
     }
     // a meter reading cannot be less than zero
@@ -54,14 +66,11 @@ if (isset($_POST['calculate'])) {
     // each block can only hold a fixed amount of kWh
     else if ($block1 > 200) {
         $error = "The first block is only 200 kWh. Please enter 200 or less.";
-    }
-    else if ($block2 > 100) {
+    } else if ($block2 > 100) {
         $error = "The second block is only 100 kWh. Please enter 100 or less.";
-    }
-    else if ($block3 > 300) {
+    } else if ($block3 > 300) {
         $error = "The third block is only 300 kWh. Please enter 300 or less.";
-    }
-    else if ($block4 > 300) {
+    } else if ($block4 > 300) {
         $error = "The fourth block is only 300 kWh. Please enter 300 or less.";
     }
     // $block5 has no limit because the tariff says "901 kWh onwards"
@@ -82,7 +91,7 @@ if (isset($_POST['calculate'])) {
         $charge5 = $block5 * 0.571;
 
         // --- totals ---
-        $totalKwh    = $block1 + $block2 + $block3 + $block4 + $block5;
+        $totalKwh = $block1 + $block2 + $block3 + $block4 + $block5;
         $totalCharge = $charge1 + $charge2 + $charge3 + $charge4 + $charge5;
 
         // the minimum monthly charge is RM3.00
